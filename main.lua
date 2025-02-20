@@ -117,3 +117,41 @@ local Button = LymeTab:CreateButton({
         end
    end,
 })
+
+local ToolInput = WBTab:CreateInput({
+   Name = "Tool Giver",
+   CurrentValue = "",
+   PlaceholderText = "Type the tool name here...",
+   RemoveTextAfterFocusLost = false,
+   Flag = "ToolInput",
+   Callback = function(ToolName)
+       local remote = game.Workspace:FindFirstChild("GiveTool", true)
+       local player = game.Players.LocalPlayer
+       local category = "Tools"
+       local flag = true
+
+       if remote and ToolName ~= "" then
+           remote:FireServer(ToolName, category, flag, player)
+       end
+   end,
+})
+
+local Dropdown = WBTab:CreateDropdown({
+    Name = "Unlock Team Spawner",
+    Options = (function()
+        local teams = {}
+        for _, team in pairs(game:GetService("Teams"):GetChildren()) do
+            table.insert(teams, team.Name)
+        end
+        return teams
+    end)(),
+    CurrentOption = {"None"},
+    MultipleOptions = false,
+    Flag = "Dropdown1",
+    Callback = function(SelectedOption)
+        local selectedTeam = game:GetService("Teams"):FindFirstChild(SelectedOption[1])
+        if selectedTeam then
+            game:GetService("Players").LocalPlayer.Team = selectedTeam
+        end
+    end,
+})
