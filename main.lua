@@ -68,6 +68,17 @@ local Button = WBTab:CreateButton({
    end,
 })
 
+local Button = WBTab:CreateButton({
+   Name = "Kill All",
+   Callback = function()
+      for _, player in pairs(game.Players:GetPlayers()) do 
+          if player ~= game.Players.LocalPlayer then
+        game.ReplicatedStorage.Events.Patch:FireServer(player, true, "83910")
+         end 
+      end
+   end,
+})
+
 local Button = OtherTab:CreateButton({
    Name = "Open Infinite Yield",
    Callback = function()
