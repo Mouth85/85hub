@@ -57,6 +57,17 @@ local Button = OtherTab:CreateButton({
     end,
 })
 
+local Button = WBTab:CreateButton({
+   Name = "Kill All",
+   Callback = function()
+      for _, player in pairs(game.Players:GetPlayers()) do 
+         if player.Character then 
+            destroy:FireServer(player.Character.Head)
+         end 
+      end
+   end,
+})
+
 local Button = OtherTab:CreateButton({
    Name = "Open Infinite Yield",
    Callback = function()
@@ -120,6 +131,34 @@ local Button = WBTab:CreateButton({
         end
    end,
 })
+
+local Button = WBTab:CreateToggle({
+    Name = "Part Deleter (Click)",
+    Callback = function(state) 
+       local UserInputService = game:GetService("UserInputService")
+       local Players = game:GetService("Players")
+       local LocalPlayer = Players.LocalPlayer
+       local Mouse = LocalPlayer:GetMouse()
+ 
+       if state then
+          deleteConnection = UserInputService.InputBegan:Connect(function(input)
+             if input.UserInputType == Enum.UserInputType.MouseButton1 then 
+                local target = Mouse.Target
+                if target then
+                   if not LocalPlayer.Character or not target:IsDescendantOf(LocalPlayer.Character) then
+                      destroy:FireServer(target)
+                   end
+                end
+             end
+          end)
+       else
+          if deleteConnection then
+             deleteConnection:Disconnect()
+             deleteConnection = nil
+          end
+       end
+    end,
+ })
 
 local Button = LymeTab:CreateButton({
    Name = "Crash Server",
