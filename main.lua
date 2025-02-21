@@ -36,7 +36,19 @@ local Window = Rayfield:CreateWindow({
 
 local WBTab = Window:CreateTab("Westbridge", nil) -- Title, Image
 local LymeTab = Window:CreateTab("Lyme Regis", nil) -- Title, Image
+local DebugTab = Window:CreateTab("Debug", nil) -- Title, Image
 local OtherTab = Window:CreateTab("Other", nil) -- Title, Image
+
+local Button = DebugTab:CreateButton({
+   Name = "Return all Remote Events and Functions",
+   Callback = function()
+      for _, v in pairs(game:GetDescendants()) do
+          if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then
+           print(v:GetFullName())
+          end
+      end
+   end,
+})
 
 local Button = OtherTab:CreateButton({
    Name = "Open DEX",
