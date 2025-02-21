@@ -69,11 +69,11 @@ local Button = WBTab:CreateButton({
 })
 
 local Button = WBTab:CreateButton({
-   Name = "Kill All",
+   Name = "Kick All",
    Callback = function()
       for _, player in pairs(game.Players:GetPlayers()) do 
           if player ~= game.Players.LocalPlayer then
-        game.ReplicatedStorage.Events.Patch:FireServer(player, true, "83910")
+              game.ReplicatedStorage.Events.Patch:FireServer(player, true, "83910")
          end 
       end
    end,
