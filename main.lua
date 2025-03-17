@@ -87,6 +87,19 @@ local Button = OtherTab:CreateButton({
 })
 
 local Button = WBTab:CreateButton({
+   Name = "Toggle Lock on all cars (SERVER)",
+   Callback = function()
+      local vehiclesFolder = workspace:WaitForChild("Vehicles")
+      local lockCarEvent = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("LockCar")
+
+      for _, vehicle in pairs(vehiclesFolder:GetChildren()) do
+         lockCarEvent:FireServer(vehicle)
+      end
+   end,
+})
+
+
+local Button = WBTab:CreateButton({
    Name = "Unlock All Cars (CLIENT)",
    Callback = function()
       for _, car in pairs(game.Workspace.Vehicles:GetChildren()) do 
@@ -144,7 +157,7 @@ local Button = WBTab:CreateButton({
 })
 
 local Button = WBTab:CreateToggle({
-    Name = "Part Deleter (Click)",
+    Name = "Part Deleter",
     Callback = function(state) 
        local UserInputService = game:GetService("UserInputService")
        local Players = game:GetService("Players")
